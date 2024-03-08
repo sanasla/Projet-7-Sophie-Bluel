@@ -19,9 +19,9 @@ function fetchWorks() {
     .then((reponse) => reponse.json())
     .then((works) => {
       console.log(works);
+      worksGallery = document.querySelector(".gallery");
       //save varibles
       workList = works;
-      worksGallery = document.querySelector(".gallery");
 
       updateWorks();
     });
@@ -31,8 +31,9 @@ function updateWorks() {
   worksGallery.innerHTML = "";
   for (let i = 0; i < workList.length; i++) {
     let work = workList[i];
-    if (work.categoryId === selectCategoryId || selectCategoryId === 0)
+    if (work.categoryId === selectCategoryId || selectCategoryId === 0) {
       showWork(work);
+    }
   }
 }
 
@@ -57,10 +58,12 @@ function fetchCATEGORIES() {
       console.log(categories);
 
       let filterWorks = new Set(categories);
+
       let nouvelleCategorie = { id: 0, name: "Tous" };
       //create btns
       let filtersZone = document.querySelector(".filter");
       createFilterButton(nouvelleCategorie, filtersZone);
+
       for (let category of filterWorks) {
         createFilterButton(category, filtersZone);
       }
@@ -73,7 +76,7 @@ function fetchCATEGORIES() {
 //CREATION DES BOUTONS FILTRES
 function createFilterButton(category, filtersZone) {
   let categoryLink = document.createElement("a");
-  categoryLink.id = "category" + category.id;
+  categoryLink.id = category.id;
   categoryLink.classList.add("category");
   categoryLink.innerHTML = category.name;
 
@@ -87,11 +90,9 @@ function createFilterButton(category, filtersZone) {
 
 //AJOUT DE LA CLASSE SELECTED A UNE CATEGORY
 function selectCategory(categoryId) {
-  document
-    .getElementById("category" + selectCategoryId)
-    .classList.remove("selected");
+  document.getElementById(selectCategoryId).classList.remove("selected");
 
-  document.getElementById("category" + categoryId).classList.add("selected");
+  document.getElementById(categoryId).classList.add("selected");
 
   selectCategoryId = categoryId;
   updateWorks();

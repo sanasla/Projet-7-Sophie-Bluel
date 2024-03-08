@@ -3,6 +3,11 @@ const BASE_URL = "http://localhost:5678/api/";
 const WORKS_API = BASE_URL + "works";
 const CATEGORY_API = BASE_URL + "categories";
 
+//Variables
+var worksGallery;
+var workList;
+var selectCategoryId = 0;
+
 //recuperer et afficher LES TRAVAUX DANS LA GALERIE
 fetchWorks();
 fetchCATEGORIES();
@@ -14,27 +19,36 @@ function fetchWorks() {
     .then((reponse) => reponse.json())
     .then((works) => {
       console.log(works);
-      showWorks(works);
+      //save varibles
+      workList = works;
+      worksGallery = document.querySelector(".gallery");
+
+      updateWorks();
     });
 }
-function showWorks(works) {
-  let worksGallery = document.querySelector(".gallery");
 
-  for (let i = 0; i < works.length; i++) {
-    let work = works[i];
-
-    let figure = document.createElement("figure");
-    let imgWorks = document.createElement("img");
-    let figcaption = document.createElement("figcaption");
-
-    imgWorks.src = work.imageUrl;
-    figcaption.innerHTML = work.title;
-    figure.appendChild(imgWorks);
-    figure.appendChild(figcaption);
-
-    worksGallery.appendChild(figure);
+function updateWorks() {
+  worksGallery.innerHTML = "";
+  for (let i = 0; i < workList.length; i++) {
+    let work = workList[i];
+    if (work.categoryId === selectCategoryId || selectCategoryId === 0)
+      showWork(work);
   }
 }
+
+function showWork(work) {
+  let figure = document.createElement("figure");
+  let imgWorks = document.createElement("img");
+  let figcaption = document.createElement("figcaption");
+
+  imgWorks.src = work.imageUrl;
+  figcaption.innerHTML = work.title;
+  figure.appendChild(imgWorks);
+  figure.appendChild(figcaption);
+
+  worksGallery.appendChild(figure);
+}
+
 //RECUPERATION DES CATEGORIES
 function fetchCATEGORIES() {
   fetch(CATEGORY_API)
@@ -51,7 +65,7 @@ function fetchCATEGORIES() {
         createFilterButton(category, filtersZone);
       }
 
-      //select tous category
+      //select category :selectionner la categorie "tous" par défaut lors de chargement de page ou chargement des filtres
       selectCategory(nouvelleCategorie.id);
     });
 }
@@ -73,5 +87,12 @@ function createFilterButton(category, filtersZone) {
 
 //AJOUT DE LA CLASSE SELECTED A UNE CATEGORY
 function selectCategory(categoryId) {
+  document
+    .getElementById("category" + selectCategoryId)
+    .classList.remove("selected");
+
   document.getElementById("category" + categoryId).classList.add("selected");
+
+  selectCategoryId = categoryId;
+  updateWorks();
 }

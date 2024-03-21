@@ -39,6 +39,9 @@ function loginUser() {
   }).then((response) => {
     if (response.status === 200) {
       //SI LOGIN OK
+      let data = response.json();
+      // STOCKAGE DU TOKEN DANS LE SESSION STORAGE
+      sessionStorage.setItem("token", data.token);
       // REDIRECTION VERS LA PAGE D'ACCUEIL
       window.location.href = "index.html";
     } else {

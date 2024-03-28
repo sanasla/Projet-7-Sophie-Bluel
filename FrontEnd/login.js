@@ -14,7 +14,7 @@ function loginUser() {
 
   //check email or password not empty
   if (email.length == 0 || password.length == 0) {
-    showError("E-mail or Password empty");
+    showError("E-mail ou mot de passe vide");
     return;
   }
 

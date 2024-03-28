@@ -12,6 +12,11 @@ var selectCategoryId = 0;
 fetchWorks();
 fetchCATEGORIES();
 
+//MODIFICATION LOGIN EN LOGOUT SI NECESSAIRE
+check_login_logout();
+
+/************************* Fonctions **********************/
+
 //RECUPERATION DES TRAVAUX
 function fetchWorks() {
   //CREATION DU FETCH POUR IMPORTER LES TRAVAUX
@@ -96,4 +101,33 @@ function selectCategory(categoryId) {
 
   selectCategoryId = categoryId;
   updateWorks();
+}
+
+function check_login_logout() {
+  if (sessionStorage.getItem("token")) {
+    window.onload = function () {
+      // CHANGE LOGIN to LOGOUT
+      let loginLogoutLink = document.getElementById("login_logout");
+      loginLogoutLink.textContent = "logout";
+      //POUR FAIRE APPARAITRE LE BANDEAU EDITION
+      let bandeau_edit = document.getElementById("edition");
+      bandeau_edit.style.display = "flex";
+      //POUR FAIRE APPARAITRE LA MODIFICATION DES PROJETS
+      let projet_modif = document.getElementById("modif_projet");
+      projet_modif.style.display = "inline";
+      //POUR CACHER LES FILTRES EN MODE EDITION
+      let button_filter = document.querySelector(".filter");
+      button_filter.style.display = "none";
+      // DÉCONNEXION LORS DU CLIQUE SUR LOGOUT
+      loginLogoutLink.addEventListener("click", function (event) {
+        event.preventDefault();
+
+        // SUPPRESSION DU TOKEN DU SESSION STORAGE
+        sessionStorage.removeItem("token");
+
+        // REDIRECTION VERS LA PAGE D'ACCUEIL
+        window.location.href = "index.html";
+      });
+    };
+  }
 }

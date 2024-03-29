@@ -11,6 +11,7 @@
 	<script src="https://kit.fontawesome.com/1e4c81f9ae.js" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="./assets/style.css">
 	<script src="galerie.js"></script>
+	<script src="modal-gallery.js" defer></script>
 </head>
 <body>
 
@@ -44,6 +45,19 @@
 	</section>
 	<section id="portfolio">
 		<h2>Mes Projets <a href="#modal1"  class="js-modal" id="modif_projet"><i class="fa-regular fa-pen-to-square"></i>modifier</a></h2>
+		<aside id="modal1" style="display:none;">
+			<div class="modal-wrapper" style="display:none;">
+				<div class="top1">
+					<div><button class="js-modal-close-1"><i class="fa-solid fa-x"></i></button></div>
+				</div>
+				<div class="title"><h3>Galerie photo</h3></div>
+				<div class="modal-gallery">
+			</div>
+
+			<div id="separation1"></div>
+
+			<a href="#modal2" class="js-modal" id="ajout_projet">Ajouter une photo </a>
+		</aside>
 
 		<div class="filter"></div>
 		<div class="gallery"></div>

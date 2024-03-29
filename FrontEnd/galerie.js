@@ -106,7 +106,7 @@ function selectCategory(categoryId) {
 function check_login_logout() {
   if (sessionStorage.getItem("token")) {
     window.onload = function () {
-      // CHANGE LOGIN to LOGOUT
+      // CHANGER LOGIN à LOGOUT
       let loginLogoutLink = document.getElementById("login_logout");
       loginLogoutLink.textContent = "logout";
       //POUR FAIRE APPARAITRE LE BANDEAU EDITION

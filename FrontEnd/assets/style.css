@@ -385,6 +385,22 @@ h2 #modif_projet {
 	background-color: white;
 }
 
+.modal-gallery figure {
+	position: relative;
+	Width: 78.63px;
+	Height: 139.87px;
+	background-color: white;
+}
+.modal-gallery img{
+	width: 76.61px;
+	height: 102.57px;
+	margin-top: 35px;
+}
+
+.modal-gallery figcaption{
+	display:none;
+}
+
 .modal-wrapper h3 {
 	position: absolute;
 	height: 30px;

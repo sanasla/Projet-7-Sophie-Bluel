@@ -1,5 +1,4 @@
 //CONSTANTES
-const GALLERY_MODALE = document.querySelector(".modal-gallery");
 const BUTTON_CLOSE = document.querySelector(".js-modal-close-1");
 const MODALE_WRAPPER = document.querySelector(".modal-wrapper");
 const BUTTON_MODIF_WORKS = document.querySelector("#modif_projet");
@@ -14,8 +13,9 @@ const OPEN_MODAL = function (e) {
   modal.addEventListener("click", CLOSE_MODAL);
   BUTTON_CLOSE.addEventListener("click", CLOSE_MODAL);
   MODALE_WRAPPER.style.display = "flex";
-  GALLERY_MODALE.innerHTML = "";
-  fetchWorks(GALLERY_MODALE, true);
+
+  showWorkOnModal = true;
+  fetchWorks();
 };
 
 //FONCTION FERMETURE BOITE MODALE
@@ -32,6 +32,7 @@ const CLOSE_MODAL = function (e) {
   modal.style.display = "none";
   modal.removeEventListener("click", CLOSE_MODAL);
   BUTTON_CLOSE.removeEventListener("click", CLOSE_MODAL);
+  showWorkOnModal = false;
 };
 
 //AJOUT LISTENER SUR CLIQUE BOUTON MODIFIER POUR APPELER OUVERTURE MODALE

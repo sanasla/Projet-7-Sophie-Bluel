@@ -7,13 +7,17 @@ const CATEGORY_API = BASE_URL + "categories";
 var worksGallery;
 var workList;
 var selectCategoryId = 0;
+var showWorkOnModal = false;
 
-//recuperer et afficher LES TRAVAUX DANS LA GALERIE
-fetchWorks();
-fetchCATEGORIES();
+//Lunch page
+window.onload = function () {
+  //recuperer et afficher LES TRAVAUX DANS LA GALERIE
+  fetchWorks();
+  fetchCATEGORIES();
 
-//MODIFICATION LOGIN EN LOGOUT SI NECESSAIRE
-check_login_logout();
+  //MODIFICATION LOGIN EN LOGOUT SI NECESSAIRE
+  check_login_logout();
+};
 
 /************************* Fonctions **********************/
 
@@ -23,10 +27,15 @@ function fetchWorks() {
   fetch(WORKS_API)
     .then((reponse) => reponse.json())
     .then((works) => {
-      console.log(works);
-      worksGallery = document.querySelector(".gallery");
       //save varibles
       workList = works;
+
+      //check work galery
+      if (showWorkOnModal) {
+        worksGallery = document.querySelector(".modal-gallery");
+      } else {
+        worksGallery = document.querySelector(".gallery");
+      }
 
       updateWorks();
     });
@@ -105,29 +114,27 @@ function selectCategory(categoryId) {
 
 function check_login_logout() {
   if (sessionStorage.getItem("token")) {
-    window.onload = function () {
-      // CHANGER LOGIN à LOGOUT
-      let loginLogoutLink = document.getElementById("login_logout");
-      loginLogoutLink.textContent = "logout";
-      //POUR FAIRE APPARAITRE LE BANDEAU EDITION
-      let bandeau_edit = document.getElementById("edition");
-      bandeau_edit.style.display = "flex";
-      //POUR FAIRE APPARAITRE LA MODIFICATION DES PROJETS
-      let projet_modif = document.getElementById("modif_projet");
-      projet_modif.style.display = "inline";
-      //POUR CACHER LES FILTRES EN MODE EDITION
-      let button_filter = document.querySelector(".filter");
-      button_filter.style.display = "none";
-      // DÉCONNEXION LORS DU CLIQUE SUR LOGOUT
-      loginLogoutLink.addEventListener("click", function (event) {
-        event.preventDefault();
+    // CHANGER LOGIN à LOGOUT
+    let loginLogoutLink = document.getElementById("login_logout");
+    loginLogoutLink.textContent = "logout";
+    //POUR FAIRE APPARAITRE LE BANDEAU EDITION
+    let bandeau_edit = document.getElementById("edition");
+    bandeau_edit.style.display = "flex";
+    //POUR FAIRE APPARAITRE LA MODIFICATION DES PROJETS
+    let projet_modif = document.getElementById("modif_projet");
+    projet_modif.style.display = "inline";
+    //POUR CACHER LES FILTRES EN MODE EDITION
+    let button_filter = document.querySelector(".filter");
+    button_filter.style.display = "none";
+    // DÉCONNEXION LORS DU CLIQUE SUR LOGOUT
+    loginLogoutLink.addEventListener("click", function (event) {
+      event.preventDefault();
 
-        // SUPPRESSION DU TOKEN DU SESSION STORAGE
-        sessionStorage.removeItem("token");
+      // SUPPRESSION DU TOKEN DU SESSION STORAGE
+      sessionStorage.removeItem("token");
 
-        // REDIRECTION VERS LA PAGE D'ACCUEIL
-        window.location.href = "index.html";
-      });
-    };
+      // REDIRECTION VERS LA PAGE D'ACCUEIL
+      window.location.href = "index.html";
+    });
   }
 }

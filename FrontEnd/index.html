@@ -12,6 +12,7 @@
 	<link rel="stylesheet" href="./assets/style.css">
 	<script src="galerie.js"></script>
 	<script src="modal-gallery.js" defer></script>
+	<script src="modal-new-photo.js" defer></script>
 </head>
 <body>
 
@@ -45,6 +46,7 @@
 	</section>
 	<section id="portfolio">
 		<h2>Mes Projets <a href="#modal1"  class="js-modal" id="modif_projet"><i class="fa-regular fa-pen-to-square"></i>modifier</a></h2>
+		
 		<aside id="modal1" style="display:none;">
 			<div class="modal-wrapper" style="display:none;">
 				<div class="top1">
@@ -57,6 +59,20 @@
 			<div id="separation1"></div>
 
 			<a href="#modal2" class="js-modal" id="ajout_projet">Ajouter une photo </a>
+			
+		</aside>
+
+
+		<aside id="modal2" style="display:none;">
+			<div class="modal-wrapper-new" style="display:none;">
+				<div class="top">
+					<div><button class="modal-back"><i class="fa-solid fa-arrow-left"></i></button></div>
+					<div><button class="js-modal-close-new"><i class="fa-solid fa-x"></i></button></div>
+				</div>
+				<div class="title"><h3>Ajout photo</h3></div>
+				
+			</div>
+			
 		</aside>
 
 		<div class="filter"></div>

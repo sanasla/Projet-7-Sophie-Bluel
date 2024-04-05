@@ -6,9 +6,9 @@ const CATEGORY_API = BASE_URL + "categories";
 //Variables
 //this is the html div to show on it the works objects
 var worksGallery;
-//this is the list of works getted from api
+//liste des works obtenus de api
 var workList;
-//this is the selected category in the filter
+//la selection des categories dans le filtre
 var selectCategoryId = 0;
 //this is a boolean to identify if we should show works on modal or not : if not the works woill be showed on the main galery
 var showWorkOnModal = false;

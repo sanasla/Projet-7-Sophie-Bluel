@@ -35,5 +35,41 @@ const CLOSE_MODAL = function (e) {
   showWorkOnModal = false;
 };
 
-//AJOUT LISTENER SUR CLIQUE BOUTON MODIFIER POUR APPELER OUVERTURE MODALE
-BUTTON_MODIF_WORKS.addEventListener("click", OPEN_MODAL);
+//FONCTION SUPPRESSION TRAVAUX
+const DELETE_WORK = function (e) {
+  const confirmation = confirm(
+    "Êtes-vous sûr de vouloir supprimer ce projet ?"
+  );
+
+  if (confirmation) {
+    try {
+      deleteWorkFetch(e.target.id);
+    } catch (error) {
+      console.error("Erreur lors de la suppression du projet:", error);
+    }
+  }
+};
+
+//APPEL API SUPPRESSION TRAVAUX
+function deleteWorkFetch(idWork) {
+  let token = sessionStorage.getItem("token");
+
+  fetch(WORKS_API + "/" + idWork, {
+    method: "DELETE",
+    headers: {
+      Accept: "*/*",
+      Authorization: `Bearer ${token}`,
+    },
+  }).then((response) => {
+    if (
+      response.status === 200 ||
+      response.status === 201 ||
+      response.status === 204
+    ) {
+      refreshWorks(GALLERY_MODALE, true); //REAFFICHAGE TRAVAUX DANS MODALE
+      refreshWorks(GALLERY_DIV, false); //REAFFICHAGE TRAVAUX DANS INDEX
+    } else {
+      alert("Erreur lors de la suppression du projet.");
+    }
+  });
+}

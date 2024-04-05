@@ -4,15 +4,21 @@ const WORKS_API = BASE_URL + "works";
 const CATEGORY_API = BASE_URL + "categories";
 
 //Variables
+//this is the html div to show on it the works objects
 var worksGallery;
+//this is the list of works getted from api
 var workList;
+//this is the selected category in the filter
 var selectCategoryId = 0;
+//this is a boolean to identify if we should show works on modal or not : if not the works woill be showed on the main galery
 var showWorkOnModal = false;
 
-//Lunch page
+//waiting fot the Lunch of the page
 window.onload = function () {
   //recuperer et afficher LES TRAVAUX DANS LA GALERIE
   fetchWorks();
+
+  //fetch and show categories
   fetchCATEGORIES();
 
   //MODIFICATION LOGIN EN LOGOUT SI NECESSAIRE
@@ -60,6 +66,12 @@ function showWork(work) {
   figcaption.innerHTML = work.title;
   figure.appendChild(imgWorks);
   figure.appendChild(figcaption);
+
+  //check work galery
+  if (showWorkOnModal) {
+    //add your btn to figure
+    createDeleteButton(figure, work);
+  }
 
   worksGallery.appendChild(figure);
 }
@@ -123,6 +135,10 @@ function check_login_logout() {
     //POUR FAIRE APPARAITRE LA MODIFICATION DES PROJETS
     let projet_modif = document.getElementById("modif_projet");
     projet_modif.style.display = "inline";
+
+    //AJOUT LISTENER SUR CLIQUE BOUTON MODIFIER POUR APPELER OUVERTURE MODALE
+    projet_modif.addEventListener("click", OPEN_MODAL);
+
     //POUR CACHER LES FILTRES EN MODE EDITION
     let button_filter = document.querySelector(".filter");
     button_filter.style.display = "none";
@@ -137,4 +153,13 @@ function check_login_logout() {
       window.location.href = "index.html";
     });
   }
+}
+
+//CREATION D'UN BOUTON SUPPRIMER POUR CHAQUE IMAGE
+function createDeleteButton(figure, work) {
+  let button = document.createElement("i");
+  button.classList.add("fa-regular", "fa-trash-can");
+  button.addEventListener("click", DELETE_WORK);
+  button.id = work.id;
+  figure.appendChild(button);
 }

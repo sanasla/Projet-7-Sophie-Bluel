@@ -437,3 +437,18 @@ h2 #modif_projet {
 	cursor: pointer;
 	text-decoration: none;
 }
+.fa-trash-can {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 9px;
+	color: white;
+	width: 17px;
+	height: 17px;
+	background-color: black;
+	border-radius: 2px;
+	position: relative;
+	bottom: 98px;
+	left: 54.14px;
+	cursor: pointer;
+}

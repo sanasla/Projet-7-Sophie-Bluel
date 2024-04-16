@@ -10,12 +10,12 @@ const OPEN_MODAL = function (e) {
   e.preventDefault();
   modal = document.querySelector("#modal1");
   modal.style.display = null;
+  worksGalleryModal = document.querySelector(".modal-gallery");
   modal.addEventListener("click", CLOSE_MODAL);
   BUTTON_CLOSE.addEventListener("click", CLOSE_MODAL);
   MODALE_WRAPPER.style.display = "flex";
 
-  showWorkOnModal = true;
-  fetchWorks();
+  fetchWorks(true);
 };
 
 //FONCTION FERMETURE BOITE MODALE
@@ -49,7 +49,6 @@ const DELETE_WORK = function (e) {
     }
   }
 };
-
 //APPEL API SUPPRESSION TRAVAUX
 function deleteWorkFetch(idWork) {
   let token = sessionStorage.getItem("token");
@@ -66,8 +65,10 @@ function deleteWorkFetch(idWork) {
       response.status === 201 ||
       response.status === 204
     ) {
-      refreshWorks(GALLERY_MODALE, true); //REAFFICHAGE TRAVAUX DANS MODALE
-      refreshWorks(GALLERY_DIV, false); //REAFFICHAGE TRAVAUX DANS INDEX
+      //REAFFICHAGE TRAVAUX DANS MODALE
+      fetchWorks(true);
+      //REAFFICHAGE TRAVAUX DANS INDEX
+      fetchWorks(false);
     } else {
       alert("Erreur lors de la suppression du projet.");
     }

@@ -4,19 +4,15 @@ const WORKS_API = BASE_URL + "works";
 const CATEGORY_API = BASE_URL + "categories";
 
 //Variables
-//this is the html div to show on it the works objects
-var worksGallery;
 //liste des works obtenus de api
 var workList;
 //la selection des categories dans le filtre
 var selectCategoryId = 0;
-//this is a boolean to identify if we should show works on modal or not : if not the works woill be showed on the main galery
-var showWorkOnModal = false;
 
 //waiting fot the Lunch of the page
 window.onload = function () {
   //recuperer et afficher LES TRAVAUX DANS LA GALERIE
-  fetchWorks();
+  fetchWorks(false);
 
   //fetch and show categories
   fetchCATEGORIES();
@@ -28,7 +24,7 @@ window.onload = function () {
 /************************* Fonctions **********************/
 
 //RECUPERATION DES TRAVAUX
-function fetchWorks() {
+function fetchWorks(showWorkOnModal) {
   //CREATION DU FETCH POUR IMPORTER LES TRAVAUX
   fetch(WORKS_API)
     .then((reponse) => reponse.json())
@@ -36,28 +32,24 @@ function fetchWorks() {
       //save varibles
       workList = works;
 
-      //check work galery
-      if (showWorkOnModal) {
-        worksGallery = document.querySelector(".modal-gallery");
-      } else {
-        worksGallery = document.querySelector(".gallery");
-      }
-
-      updateWorks();
+      updateWorks(showWorkOnModal);
     });
 }
 
-function updateWorks() {
-  worksGallery.innerHTML = "";
+function updateWorks(showWorkOnModal) {
+  let gallery = getWorksGallery(showWorkOnModal);
+  gallery.innerHTML = "";
   for (let i = 0; i < workList.length; i++) {
     let work = workList[i];
     if (work.categoryId === selectCategoryId || selectCategoryId === 0) {
-      showWork(work);
+      showWork(work, showWorkOnModal);
     }
   }
 }
 
-function showWork(work) {
+function showWork(work, showWorkOnModal) {
+  let gallery = getWorksGallery(showWorkOnModal);
+
   let figure = document.createElement("figure");
   let imgWorks = document.createElement("img");
   let figcaption = document.createElement("figcaption");
@@ -73,7 +65,7 @@ function showWork(work) {
     createDeleteButton(figure, work);
   }
 
-  worksGallery.appendChild(figure);
+  gallery.appendChild(figure);
 }
 
 //RECUPERATION DES CATEGORIES
@@ -81,8 +73,6 @@ function fetchCATEGORIES() {
   fetch(CATEGORY_API)
     .then((reponse) => reponse.json())
     .then((categories) => {
-      console.log(categories);
-
       let filterWorks = new Set(categories);
 
       let nouvelleCategorie = { id: 0, name: "Tous" };
@@ -125,7 +115,8 @@ function selectCategory(categoryId) {
 }
 
 function check_login_logout() {
-  if (sessionStorage.getItem("token")) {
+  let token = sessionStorage.getItem("token");
+  if (token != null) {
     // CHANGER LOGIN à LOGOUT
     let loginLogoutLink = document.getElementById("login_logout");
     loginLogoutLink.textContent = "logout";
@@ -145,7 +136,7 @@ function check_login_logout() {
     // DÉCONNEXION LORS DU CLIQUE SUR LOGOUT
     loginLogoutLink.addEventListener("click", function (event) {
       event.preventDefault();
-
+      let token = sessionStorage.getItem("token");
       // SUPPRESSION DU TOKEN DU SESSION STORAGE
       sessionStorage.removeItem("token");
 
@@ -162,4 +153,14 @@ function createDeleteButton(figure, work) {
   button.addEventListener("click", DELETE_WORK);
   button.id = work.id;
   figure.appendChild(button);
+}
+
+function getWorksGallery(showWorkOnModal) {
+  //check work galery
+
+  if (showWorkOnModal) {
+    return document.querySelector(".modal-gallery");
+  } else {
+    return document.querySelector(".gallery");
+  }
 }

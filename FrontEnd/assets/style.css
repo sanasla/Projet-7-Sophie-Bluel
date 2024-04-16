@@ -544,16 +544,3 @@ h2 #modif_projet {
 	width: 420px;
 	margin-top: 47px;
 	}
-
-	.button-submit {
-		margin-top: 32px;
-		border-radius: 60px;
-		border: none;
-		height: 36px;
-		width: 237px;
-		color: white;
-		background-color: #A7A7A7;
-		margin-left: 80px;
-		font-family: "Syne";
-		font-size: 14px;
-	}

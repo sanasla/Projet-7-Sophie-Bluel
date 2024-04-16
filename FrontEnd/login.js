@@ -36,19 +36,27 @@ function loginUser() {
       "Content-Type": "application/json;charset=utf-8",
     },
     body: JSON.stringify(user),
-  }).then((response) => {
-    if (response.status === 200) {
-      //SI LOGIN OK
-      let data = response.json();
-      // STOCKAGE DU TOKEN DANS LE SESSION STORAGE
-      sessionStorage.setItem("token", data.token);
-      // REDIRECTION VERS LA PAGE D'ACCUEIL
-      window.location.href = "index.html";
-    } else {
-      //SI EMAIL OU MDP KO ON AFFICHE MESSAGE ERREUR
-      showError("E-mail ou mot de passe incorrect");
-    }
-  });
+  })
+    .then((response) => {
+      if (response.status === 200) {
+        //SI LOGIN OK
+        return response.json();
+      } else {
+        //SI EMAIL OU MDP KO ON AFFICHE MESSAGE ERREUR
+        showError("E-mail ou mot de passe incorrect");
+      }
+    })
+    .then((data) => {
+      if (data) {
+        // STOCKAGE DU TOKEN DANS LE SESSION STORAGE
+        let token = data.token;
+        sessionStorage.setItem("token", token);
+        // REDIRECTION VERS LA PAGE D'ACCUEIL
+        window.location.href = "index.html";
+      } else {
+        console.log("data null ");
+      }
+    });
 }
 
 function isMailValid(email) {

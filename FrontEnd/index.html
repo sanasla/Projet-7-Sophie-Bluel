@@ -65,12 +65,22 @@
 
 		<aside id="modal2" style="display:none;">
 			<div class="modal-wrapper-new" style="display:none;">
-				<div class="top">
+				<div class="top2">
 					<div><button class="modal-back"><i class="fa-solid fa-arrow-left"></i></button></div>
 					<div><button class="js-modal-close-new"><i class="fa-solid fa-x"></i></button></div>
 				</div>
 				<div class="title"><h3>Ajout photo</h3></div>
 				<div class="form">
+
+					<div class="modal-new-photo"> 
+						<div class="picture-selection">
+							<i id="no-picture-preview" class="fa-regular fa-image"></i>
+							<input accept="image/*" type='file' id="input-picture" style="display:none" />
+							<button class="button-add-photo">+ Ajouter photo</button>
+							<div class="precision">jpg, png : 4mo max</div>
+						</div>
+						<img id="picture-preview" name="picture-preview" src="#" alt="your image" />
+					</div>
 					
 					<div class="modal-new-photo-form">
 						<label for="titre">Titre</label>

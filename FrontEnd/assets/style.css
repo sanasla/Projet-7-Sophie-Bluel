@@ -328,7 +328,6 @@ h2 #modif_projet {
 	margin-right: 10px;
 }
 
-/** les MODALE**/
 #modal1{
 	position: fixed;
 	left: 0;
@@ -381,7 +380,6 @@ h2 #modif_projet {
 	border: none;
 	margin-top: 26px;
 	margin-right: 30px;
-	position: absolute;
 	cursor: pointer;
 	font-size: 18px;
 }
@@ -393,6 +391,7 @@ h2 #modif_projet {
 	border: none;
 	margin-top: 26px;
 	margin-left: 30px;
+	
 	height: 24px;
 }
 
@@ -544,3 +543,86 @@ h2 #modif_projet {
 	width: 420px;
 	margin-top: 47px;
 	}
+
+	.precision {
+		background-color: #E8F1F7;
+		font-size: 10px;
+		display: flex;
+		justify-content: center;
+		margin-top: 7px;
+		font-family: "Work Sans";
+	}
+	
+	.picture-selection{
+		background-color: #E8F1F6;
+	}
+	
+	#picture-preview {
+		display: none;
+		max-width: 129px;
+		max-height: 193px;
+	}
+
+	.fa-image {
+		font-size: 76px;
+		color: #B9C5CC;
+		display: flex;
+		justify-content: center;
+		margin-top: 13px;
+		width: 100%;
+		background-color: #E8F1F6;
+	}
+
+	.button-add-photo {
+		border-radius: 60px;
+		background-color: #CBD6DC;
+		border: none;
+		height: 36px;
+		width: 173px;
+		color: #306685;
+		font-size: 14px;
+		margin-top: 6px;
+		cursor: pointer;
+	}
+
+	.modal-new-photo-form label,
+.modal-new-photo-form div,
+.top div,
+.top i {
+	background-color: white;
+}
+
+.top1 {
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 10px;
+	background-color: white;
+}
+
+.top2 {
+	display:flex;
+	justify-content: space-between;
+	margin-top: 10px;
+	background-color: white;
+}
+
+modal-new-photo-form {
+	display: flex;
+	width: 420px;
+	flex-direction: column;
+	background-color: white;
+}
+
+.modal-new-photo {
+	display: flex;
+	width: 420px;
+	height: 169px;
+	margin: 36px 0 9px 0;
+	background-color: #E8F1F7;
+	border-radius: 3px;
+	margin-bottom: 30px;
+	flex-direction: column;
+	align-items: center;
+}
+
+

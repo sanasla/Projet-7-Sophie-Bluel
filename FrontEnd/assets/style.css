@@ -384,6 +384,9 @@ h2 #modif_projet {
 	font-size: 18px;
 }
 
+.js-modal-close-new {
+	position:relative;
+}
 
 
 .modal-back {

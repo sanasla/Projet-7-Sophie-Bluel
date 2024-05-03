@@ -24,15 +24,18 @@ const OPEN_MODAL_NEW = function (e) {
 
   let modal_wrapper = document.querySelector(".modal-wrapper-new");
   modal_wrapper.style.display = "flex";
+
+  resetPhotoSelection(); //REMISE A VIDE DE LA SELECTION PHOTO
+  resetForm(); // REMISE A VIDE FORMULAIRE AJOUT PHOTO
+  loadCategories();
 };
 
 //FONCTION FERMETURE BOITE MODALE
 const CLOSE_MODAL_NEW = function (e) {
-  console.log("bilel close called");
   if (modal_new == null) return;
 
   //SI ON CLIQUE SUR AUTRE CHOSE QUE LA MODALE OU LE BOUTON ON NE VEUT PAS FERMER
-  console.log("bilel close called target" + e.target);
+
   if (
     e.target != modal_new &&
     e.target != BUTTON_CLOSE_NEW &&
@@ -40,7 +43,6 @@ const CLOSE_MODAL_NEW = function (e) {
   )
     return;
 
-  console.log("bilel close called OK");
   e.preventDefault;
   modal_new.style.display = "none";
   modal_new.removeEventListener("click", CLOSE_MODAL_NEW);
@@ -74,3 +76,36 @@ INPUT_PICTURE.addEventListener("change", function () {
     PICTURE_SELECTION.style.display = "none";
   }
 });
+
+//CHARGEMENT CATEGORIES DEPUIS API
+function loadCategories() {
+  CATEGORIES_SELECT.innerHTML = ""; //ON VIDE AVANT DE FETCH POUR NE PAS ACCUMULER LES CATEGORIES
+  let option = document.createElement("option");
+  option.value = 0;
+  option.text = "";
+  CATEGORIES_SELECT.add(option); // AJOUT CATEGORIE VIDE DANS LE FORMULAIRE
+  fetch(CATEGORY_API)
+    .then((reponse) => reponse.json())
+    .then((categories) => {
+      for (let category of categories) {
+        let option = document.createElement("option");
+        option.value = category.id;
+        option.text = category.name;
+        CATEGORIES_SELECT.add(option);
+      }
+    });
+}
+
+//REMISE A ZERO SELECTION IMAGE
+function resetPhotoSelection() {
+  INPUT_PICTURE.value = "";
+  PICTURE_PREVIEW.src = "";
+  PICTURE_PREVIEW.style.display = "none";
+  PICTURE_SELECTION.style.display = "block";
+}
+
+//REMISE A ZERO FORMULAIRE UPLOAD
+function resetForm() {
+  CATEGORIES_SELECT.value = 0;
+  TITLE_NEW_PHOTO.value = "";
+}

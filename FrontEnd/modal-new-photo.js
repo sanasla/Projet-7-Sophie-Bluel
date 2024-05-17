@@ -2,13 +2,14 @@
 const NEW_MODALE = document.querySelector(".modal-new-photo");
 const BUTTON_CLOSE_NEW = document.querySelector(".js-modal-close-new");
 const BUTTON_BACK = document.querySelector(".modal-back");
-const BUTTON_ADD = document.querySelector(".button-add-photo");
+const BUTTON_ADD_PHOTO = document.querySelector(".button-add-photo");
 const INPUT_PICTURE = document.querySelector("#input-picture");
 const PICTURE_PREVIEW = document.querySelector("#picture-preview");
 const PICTURE_SELECTION = document.querySelector(".picture-selection");
 const CATEGORIES_SELECT = document.querySelector(".select-category");
 const TITLE_NEW_PHOTO = document.querySelector(".input-titre");
 const BUTTON_SUBMIT = document.querySelector(".button-submit");
+const BUTTON_ADD_WORK = document.querySelector("#ajout_projet");
 
 let modal_new = null;
 
@@ -47,16 +48,20 @@ const CLOSE_MODAL_NEW = function (e) {
 
   e.preventDefault;
   modal_new.style.display = "none";
-  modal_new.removeEventListener("click", CLOSE_MODAL_NEW);
 };
 
 //CHARGEMENT CATEGORIES DEPUIS API
+/**
+ * recupere les categor depuis api et les afficher en ajoutant categorie select
+ */
 function loadCategories() {
   CATEGORIES_SELECT.innerHTML = ""; //ON VIDE AVANT DE FETCH POUR NE PAS ACCUMULER LES CATEGORIES
+
   let option = document.createElement("option");
   option.value = 0;
   option.text = "";
-  CATEGORIES_SELECT.add(option); // AJOUT CATEGORIE VIDE DANS LE FORMULAIRE
+  CATEGORIES_SELECT.add(option); // AJOUT CATEGORIE VIDE ( 1er ligne) DANS LE FORMULAIRE
+
   fetch(CATEGORY_API)
     .then((reponse) => reponse.json())
     .then((categories) => {
@@ -83,8 +88,17 @@ function resetForm() {
   TITLE_NEW_PHOTO.value = "";
 }
 
-//UPLOAD NOUVEAU PROJET
-const UPLOAD_WORK = function () {
+//UPLOAD NOUVEAU PROJET:
+
+/**recupere le token ds session storage
+ *
+ * creation de l'objet form data pr l'envoyer a api: form data contient les variable ds api qui sont: image titre et categorie
+ *
+ * fetch works api, methode post , si reponse est vrai (200 ou 20&) on appl fetchworks pr afficher ls works ds modale et dansindex
+ *
+ * une fois ajouté, il faut remise a zerz de photo et formulaire
+ */
+const ADD_WORK_TO_API = function () {
   let token = sessionStorage.getItem("token");
 
   const formData = new FormData();
@@ -117,7 +131,14 @@ const UPLOAD_WORK = function () {
   });
 };
 
-//VERIFICATION FORMULAIRE COMPLET
+//VERIFICATION FORMULAIRE COMPLET: bouton valider
+
+/**
+ * si les 3 champs sont remplie alors le bouton valider est cliquable , on applique style css suivantes sur le bouton
+ *
+ * si non si une de champ est vide le bouton n'est pas cliquable et il reste grisé
+ * @param {*} e
+ */
 const VERIFICATION = function (e) {
   if (
     INPUT_PICTURE.value != "" &&
@@ -126,19 +147,20 @@ const VERIFICATION = function (e) {
   ) {
     BUTTON_SUBMIT.style.backgroundColor = "#1D6154";
     BUTTON_SUBMIT.style.cursor = "pointer";
-    BUTTON_SUBMIT.addEventListener("click", UPLOAD_WORK);
+    BUTTON_SUBMIT.addEventListener("click", ADD_WORK_TO_API);
   } else {
     BUTTON_SUBMIT.style.backgroundColor = "#A7A7A7";
     BUTTON_SUBMIT.style.cursor = "default";
-    BUTTON_SUBMIT.removeEventListener("click", UPLOAD_WORK);
+    BUTTON_SUBMIT.removeEventListener("click", ADD_WORK_TO_API);
   }
 };
 
-// register listners
+// register listners:
 
-document.querySelectorAll("#ajout_projet").forEach((a) => {
-  a.addEventListener("click", OPEN_MODAL_NEW);
-});
+/**
+ * si je clique sur bouton add work on appl fonction open modal new
+ */
+BUTTON_ADD_WORK.addEventListener("click", OPEN_MODAL_NEW);
 
 BUTTON_CLOSE_NEW.addEventListener("click", CLOSE_MODAL_NEW);
 //BOUTON RETOUR: en cliqunat sur button back, la fonction se declenche masque l element anec id : nex modal et affiche l'element avec id modal
@@ -147,12 +169,12 @@ BUTTON_BACK.addEventListener("click", function () {
   modal.style.display = "flex";
 });
 
-//BOUTON AJOUT PHOTO
-BUTTON_ADD.addEventListener("click", function () {
+//BOUTON AJOUT PHOTO , si je click sur button add photo j active la selection des photo
+BUTTON_ADD_PHOTO.addEventListener("click", function () {
   INPUT_PICTURE.click();
 });
 
-//SELECTEUR FICHIER PHOTO
+//SELECTEUR FICHIER PHOTO: qud l image sera selectionne je verifi sa taille , si tt va bien je l'affiche
 INPUT_PICTURE.addEventListener("change", function () {
   if (this.files[0].size > 4194304) {
     alert("Fichier trop volumineux");
@@ -165,6 +187,9 @@ INPUT_PICTURE.addEventListener("change", function () {
   }
 });
 
+/**
+ * ajouter des change listner sur tt les input pr verifier et changer l'etat de bouton valider 
+ */
 INPUT_PICTURE.addEventListener("change", VERIFICATION);
 CATEGORIES_SELECT.addEventListener("change", VERIFICATION);
 TITLE_NEW_PHOTO.addEventListener("change", VERIFICATION);

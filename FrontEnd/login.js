@@ -2,17 +2,17 @@
 const BASE_URL = "http://localhost:5678/api/";
 const USERS_API = BASE_URL + "users/login";
 
-// AJOUT D'UN EVENEMENT AU CLIC POUR SE CONNECTER
+// AJOUT D'UN EVENEMENT AU CLIC POUR SE CONNECTER( cliq sur bouton se connecter)
 document.getElementById("se_connecter").addEventListener("click", function () {
   loginUser();
 });
 
 function loginUser() {
-  //RECUPERATION E-MAIL ET MOT DE PASSE
+  //RECUPERATION E-MAIL ET MOT DE PASSE(les valeurs saisie de login et mot pass)
   let email = document.getElementById("email").value;
   let password = document.getElementById("password").value;
 
-  //check email or password not empty
+  //check email ou mot pass vide
   if (email.length == 0 || password.length == 0) {
     showError("E-mail ou mot de passe vide");
     return;
@@ -29,7 +29,7 @@ function loginUser() {
     password: password,
   };
 
-  //APPEL DE L'API POUR VERIFIER L'E-MAIL ET LE MOT DE PASSE
+  //APPEL DE L'API POUR VERIFIER L'E-MAIL ET LE MOT DE PASSE: methode post pr envoyer des donnés au serveur
   fetch(USERS_API, {
     method: "POST",
     headers: {
@@ -66,7 +66,7 @@ function isMailValid(email) {
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     );
 }
-
+/** afficher msg erreur sur web: get element pr recuperer login erreur de dom puis remplacer login erreur par msg erreur enfin configurer css  */
 function showError(message) {
   loginError = document.getElementById("login_error");
   loginError.innerHTML = message;

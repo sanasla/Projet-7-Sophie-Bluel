@@ -89,15 +89,6 @@ function resetForm() {
 }
 
 //UPLOAD NOUVEAU PROJET:
-
-/**recupere le token ds session storage
- *
- * creation de l'objet form data pr l'envoyer a api: form data contient les variable ds api qui sont: image titre et categorie
- *
- * fetch works api, methode post , si reponse est vrai (200 ou 20&) on appl fetchworks pr afficher ls works ds modale et dansindex
- *
- * une fois ajouté, il faut remise a zerz de photo et formulaire
- */
 const ADD_WORK_TO_API = function () {
   let token = sessionStorage.getItem("token");
 
@@ -132,13 +123,6 @@ const ADD_WORK_TO_API = function () {
 };
 
 //VERIFICATION FORMULAIRE COMPLET: bouton valider
-
-/**
- * si les 3 champs sont remplie alors le bouton valider est cliquable , on applique style css suivantes sur le bouton
- *
- * si non si une de champ est vide le bouton n'est pas cliquable et il reste grisé
- * @param {*} e
- */
 const VERIFICATION = function (e) {
   if (
     INPUT_PICTURE.value != "" &&
@@ -188,7 +172,7 @@ INPUT_PICTURE.addEventListener("change", function () {
 });
 
 /**
- * ajouter des change listner sur tt les input pr verifier et changer l'etat de bouton valider 
+ * ajouter des change listner sur tt les input pr verifier et changer l'etat de bouton valider
  */
 INPUT_PICTURE.addEventListener("change", VERIFICATION);
 CATEGORIES_SELECT.addEventListener("change", VERIFICATION);

@@ -9,7 +9,6 @@ var workList;
 //la selection des categories dans le filtre
 var selectCategoryId = 0;
 
-//waiting fot the Lunch of the page
 window.onload = function () {
   //recuperer et afficher LES TRAVAUX DANS LA GALERIE
   fetchWorks(false);
@@ -25,11 +24,6 @@ window.onload = function () {
 
 //RECUPERATION DES TRAVAUX
 
-/**fetchworks qui recupere les works sous forme json et le met dans variable worklist puis appel de fonction updateworks
- *
- * @param {*} showWorkOnModal est un parametre utilisé  pour distinguer entre le modale et la page pricipale, 
-  issi ds la page  est en false
- */
 function fetchWorks(showWorkOnModal) {
   //CREATION DU FETCH POUR IMPORTER LES TRAVAUX
   fetch(WORKS_API)
@@ -42,17 +36,6 @@ function fetchWorks(showWorkOnModal) {
     });
 }
 
-/**
- * fonction update works prend en parametre showWorkOnmodal.
- * dans cete methode: 
- *  - on recupere les work galary de la fonction getworks gallery qu'on va l'expliquer aprés en passant le parametre showwork on modal
- *  - vider le contenu de a galery
- *  -appliquer le filtre s'il existe( work correspond a la catagorie selectionné )ou si la category selectionné est vide )
-alors on appelle la fonction show work 
- 
- * @param {*} showWorkOnModal 
- */
-
 function updateWorks(showWorkOnModal) {
   let gallery = getWorksGallery(showWorkOnModal);
   gallery.innerHTML = "";
@@ -64,12 +47,6 @@ function updateWorks(showWorkOnModal) {
   }
 }
 
-/**creer les elements html de image titre et le figure par create element
- piis le remplissage cad mettre image de work , titre de work et puis mettre tout ca dans la figure
- * 
- * @param {*} work 
- * @param {*} showWorkOnModal 
- */
 function showWork(work, showWorkOnModal) {
   let gallery = getWorksGallery(showWorkOnModal);
 
@@ -91,14 +68,6 @@ function showWork(work, showWorkOnModal) {
   gallery.appendChild(figure);
 }
 
-//RECUPERATION DES CATEGORIES
-/**cette fonction recupere les categories a partir de API
- * Une fois les données des catégories disponibles; elles sont stockées dans la variable categories.
- *  Set est utilisé ici pour s'assurer qu'il n'y a pas de doublons dans les catégories.
- * Ensuite, un objet nouvelleCategorie est créé avec un id de 0 et un name de "Tous"
- *  La fonction createFilterButton() est appelée pr créer un bouton de filtre pour la catégorie "Tous" et ensuite pour 
- chaque catégorie recupéré de API
- */
 function fetchCATEGORIES() {
   fetch(CATEGORY_API)
     .then((reponse) => reponse.json())
@@ -120,18 +89,6 @@ function fetchCATEGORIES() {
     });
 }
 
-//CREATION DES BOUTONS FILTRES
-/**
- *creer le bouton filtre avec la category le parametre et la zone et ajouter le click listenr sur ce bouton 
- pour permettre la selection des categories
- 
- * on commence par créationlien html (a) , donner la category id a cete element et lui donner class  css
- Une fois que l'élément <a> est configuré, il est ajouté à la zone de filtres spécifiée (filtersZone) 
- en utilisant filtersZone.appendChild(categoryLink)
- * @param {*} category
- * @param {*} filtersZone
- */
-
 function createFilterButton(category, filtersZone) {
   let categoryLink = document.createElement("a");
   categoryLink.id = category.id;
@@ -145,14 +102,6 @@ function createFilterButton(category, filtersZone) {
     selectCategory(category.id);
   });
 }
-
-//AJOUT DE LA CLASSE SELECTED A UNE CATEGORY:
-/**
- * cette focntion gere la selection d'une categorie : elle deselectionne l'objet selectionné et selectionne le nouveau objet
- * aprés avoir mi les filtre visuelle, on appelel la fonction updateworks pour mettre a jour les works en fonction de la categories selectionne
- *
- * @param {*} categoryId
- */
 
 function selectCategory(categoryId) {
   document.getElementById(selectCategoryId).classList.remove("selected");
@@ -195,18 +144,6 @@ function check_login_logout() {
   }
 }
 
-//CREATION D'UN BOUTON SUPPRIMER POUR CHAQUE IMAGE de modal
-/**
- * fonction pour creer et ajouter le bouton supprimé associé   au work, ajouter event listenr pr gerer les click sur ce bouton
- *
- * on commence par creer le nouvel element html
- * puis ajouter element css au bouton crée avec fa regular et fa trash utilisé avec bibliotheque fontawesome
- * puis ajout ecouteur evenement  en cliquant sur bouton appel de fonction delete work
- * la ligne boutonid= work id : identifi de manniere uniqu le bouton par rapport au work a supprimer
- * enfin ajout de button supprimer en tant enfant de l'element figure pour que bouton s'affiche a cote de l'image
- * @param {*} figure
- * @param {*} work
- */
 function createDeleteButton(figure, work) {
   let button = document.createElement("i");
   button.classList.add("fa-regular", "fa-trash-can");

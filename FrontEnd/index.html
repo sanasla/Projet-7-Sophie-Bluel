@@ -16,9 +16,9 @@
 </head>
 <body>
 
-	<section id="edition">
+	<div id="edition">
 		<div class="bandeau_edition"><i class="fa-regular fa-pen-to-square"></i>Mode édition</div>
-	</section>
+	</div>
 
 <header>
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
@@ -33,7 +33,7 @@
 </header>
 <main>
 	
-	<section id="introduction">
+	<div id="introduction">
 		<figure>
 			<img src="./assets/images/sophie-bluel.png" alt="">
 		</figure>
@@ -43,7 +43,7 @@
 			<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
 			<p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG, décorateur(trice)</p>
 		</article>
-	</section>
+	</div>
 	<section id="portfolio">
 		<h2>Mes Projets <a href="#modal1"  class="js-modal" id="modif_projet"><i class="fa-regular fa-pen-to-square"></i>modifier</a></h2>
 		
@@ -53,13 +53,12 @@
 					<div><button class="js-modal-close-1"><i class="fa-solid fa-x"></i></button></div>
 				</div>
 				<div class="title"><h3>Galerie photo</h3></div>
-				<div class="modal-gallery">
-			</div>
+				<div class="modal-gallery"></div>
 
 			<div id="separation1"></div>
 
 			<a href="#modal2" class="js-modal" id="ajout_projet">Ajouter une photo </a>
-			
+		</div>
 		</aside>
 
 
@@ -75,18 +74,18 @@
 					<div class="modal-new-photo"> 
 						<div class="picture-selection">
 							<i id="no-picture-preview" class="fa-regular fa-image"></i>
-							<input accept="image/*" type='file' id="input-picture" style="display:none" />
+							<input accept="image/*" type='file' id="input-picture" style="display:none" >
 							<button class="button-add-photo">+ Ajouter photo</button>
 							<div class="precision">jpg, png : 4mo max</div>
 						</div>
-						<img id="picture-preview" name="picture-preview" src="#" alt="your image" />
+						<img id="picture-preview" src="#" alt="your image" >
 					</div>
 					
 					<div class="modal-new-photo-form">
 						<label for="titre">Titre</label>
-						<input name="titre" class="input-titre" type="text"/>
+						<input name="titre" class="input-titre" type="text" id="titre">
 						<label for="categorie">Catégorie</label>
-						<select name="categorie" class="select-category" type="text"></select>
+						<select name="categorie" class="select-category" id="categorie"></select>
 						<div id="separation2"></div>
 						<button class="button-submit">Valider</button>
 					</div>

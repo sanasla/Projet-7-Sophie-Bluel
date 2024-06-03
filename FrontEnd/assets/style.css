@@ -54,15 +54,7 @@ body {
 	font-family: 'Work Sans' ;
 	font-size: 14px;
 }
-header {
-	display: flex;
-	justify-content: space-between;
-	margin: 50px 0
-}
-header ul a {
-	text-decoration: none;
-	color: black;
-}
+
 section {
 	margin: 50px 0
 }
@@ -297,8 +289,37 @@ footer nav ul {
 	justify-content: center;
 	margin-right: 11px;
 }
+
 #edition {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background-color: black;
 	display: none;
+	justify-content: center;
+	align-items: center;
+	gap: 12px;
+	height: 60px;
+}
+
+#edition p, #edition i{
+	background-color: black;
+	color: white;
+
+	font-size: 16px;
+	font-weight: 400;
+}
+
+#en_tete /* Anciennement Header */ {
+	display: flex;
+	justify-content: space-between;
+	margin: 50px 0
+}
+
+#en_tete ul a {
+	text-decoration: none;
+	color: black;
 }
 
 /**MODALE**/

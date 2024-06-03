@@ -119,6 +119,9 @@ function check_login_logout() {
     let loginLogoutLink = document.getElementById("login_logout");
     loginLogoutLink.textContent = "logout";
     //POUR FAIRE APPARAITRE LE BANDEAU EDITION
+    let enTete = document.getElementById("en_tete");
+    enTete.style.marginTop = "100px";
+
     let bandeau_edit = document.getElementById("edition");
     bandeau_edit.style.display = "flex";
     //POUR FAIRE APPARAITRE LA MODIFICATION DES PROJETS
